@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "RandomUser"
 include(":app")
 include(":database")
+include(":feature:user")
