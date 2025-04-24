@@ -23,3 +23,4 @@ rootProject.name = "RandomUser"
 include(":app")
 include(":database")
 include(":feature:user")
+include(":localstore-api")
