@@ -35,5 +35,8 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.bundles.ktor)
+    implementation(libs.kotlinx.coroutines.core)
+
     testImplementation(libs.junit)
 }
