@@ -42,8 +42,11 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 ktor-mock-client = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 ktor-logger = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin"  }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin"  }
+koin-test= { group = "io.insert-koin", name = "koin-test", version.ref = "koin"  }
+koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4", version.ref = "koin"  }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
