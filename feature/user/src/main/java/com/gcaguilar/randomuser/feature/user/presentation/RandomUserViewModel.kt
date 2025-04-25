@@ -1,0 +1,41 @@
+package com.gcaguilar.randomuser.feature.user.presentation
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.gcaguilar.randomuser.feature.user.domain.GetUsers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.util.UUID
+
+enum class State {
+    Idle,
+    Loading
+}
+
+data class UIState(
+    val users: List<UserModel> = emptyList(),
+    val seed: String = UUID.randomUUID().toString(),
+    val page: Int = 1,
+    val state: State = State.Loading,
+)
+
+class RandomUserViewModel(
+    private val getUsers: GetUsers
+) : ViewModel() {
+    private val _uiState = MutableStateFlow(UIState())
+    val uiState = _uiState.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            getUsers().collect { users ->
+                _uiState.update {
+                    it.copy(
+                        users = users.toUserModel()
+                    )
+                }
+            }
+        }
+    }
+}
