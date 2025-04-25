@@ -20,7 +20,7 @@ private fun UserModelDetailed.toUserEntity(): UserEntity {
 }
 
 
-fun List<UserModelDetailed>.toUserModelDetailed(): List<UserEntity> {
+fun List<UserModelDetailed>.toUserEntity(): List<UserEntity> {
     return this.map { it.toUserEntity() }
 }
 
