@@ -5,7 +5,7 @@ import com.gcaguilar.randomuser.database.mapper.toUserModelDetailed
 import com.gcaguilar.randomuser.userlocalstorageapi.UserLocalDataSource
 import com.gcaguilar.randomuser.userlocalstorageapi.UserModelDetailed
 
-class UserLocalDataSourceImp(
+class UserLocalDataSourceImpl(
     private val userDao: UserDao
 ): UserLocalDataSource {
     override suspend fun insertAll(users: List<UserModelDetailed>) {
