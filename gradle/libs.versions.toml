@@ -15,6 +15,7 @@ ktor = "3.1.2"
 serialization = "1.8.1"
 koin = "4.0.4"
 jetbrainsKotlinJvm = "2.0.21"
+navigation = "2.8.9"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,6 +48,7 @@ koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin"
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin"  }
 koin-test= { group = "io.insert-koin", name = "koin-test", version.ref = "koin"  }
 koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4", version.ref = "koin"  }
+androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"  }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
