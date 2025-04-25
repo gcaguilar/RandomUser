@@ -22,6 +22,7 @@ import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class RandomUserRepositoryTest : KoinTest {
     private val localDataSource: UserLocalDataSource by inject()
@@ -51,5 +52,14 @@ class RandomUserRepositoryTest : KoinTest {
 
             val insertedUser = (localDataSource as FakeUserLocalDataSource).lastInsertedUser
             assertEquals(firstPageList.last(), insertedUser)
+        }
+
+    @Test
+    fun `Given failed page request when data is arrived then no data is inserted`() =
+        runTest {
+            userRepository.getPage(666, "some feed")
+
+            val insertedUser = (localDataSource as FakeUserLocalDataSource).lastInsertedUser
+            assertNull(insertedUser)
         }
 }
