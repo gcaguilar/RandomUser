@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.roborazzi)
     kotlin("plugin.serialization")
 }
 
@@ -31,6 +32,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
@@ -54,4 +56,6 @@ dependencies {
     testImplementation(libs.ktor.mock.client)
     testImplementation(libs.koin.test.junit4)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.bundles.screenshot.testing)
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
