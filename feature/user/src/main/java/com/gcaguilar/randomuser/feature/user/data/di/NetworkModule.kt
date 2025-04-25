@@ -2,6 +2,7 @@ package com.gcaguilar.randomuser.feature.user.data.di
 
 import com.gcaguilar.randomuser.feature.user.data.api.RandomUserApiClient
 import com.gcaguilar.randomuser.feature.user.data.api.UserRemoteDataSource
+import com.gcaguilar.randomuser.feature.user.data.repository.RandomUserRepository
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpTimeout
@@ -33,6 +34,12 @@ val dataModule = module {
     factory<UserRemoteDataSource> {
         RandomUserApiClient(
             client = get()
+        )
+    }
+    factory {
+        RandomUserRepository(
+            localDataSource = get(),
+            remoteDataSource = get()
         )
     }
 }

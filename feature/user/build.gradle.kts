@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":user-localstorage-api"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.ktor)
     implementation(libs.kotlinx.coroutines.core)

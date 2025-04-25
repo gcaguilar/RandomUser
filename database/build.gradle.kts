@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":user-localstorage-api"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
