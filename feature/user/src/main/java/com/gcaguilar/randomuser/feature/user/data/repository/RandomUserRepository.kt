@@ -9,7 +9,7 @@ class RandomUserRepository(
 ) {
     suspend fun getPage(page: Int, seed: String): Result<Unit> {
         return remoteDataSource.getUsers(page, seed)
-            .map { result ->
+            .mapCatching { result ->
                 localDataSource.insertAll(result)
             }
     }
