@@ -43,6 +43,7 @@ ktor-mock-client = { group = "io.ktor", name = "ktor-client-mock", version.ref =
 ktor-logger = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin"  }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin"  }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
