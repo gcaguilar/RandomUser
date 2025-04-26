@@ -15,6 +15,7 @@ fun InfiniteLazyList(
     userList: List<UserModel>,
     listState: LazyListState,
     onClickUser: (String) -> Unit,
+    onRemoveUser: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -30,6 +31,7 @@ fun InfiniteLazyList(
                 picture = user.picture,
                 email = user.email,
                 onClickUser = { onClickUser(user.uuid) },
+                onRemoveUser = { onRemoveUser(user.uuid) }
             )
             if (it != userList.size - 1) {
                 HorizontalDivider()

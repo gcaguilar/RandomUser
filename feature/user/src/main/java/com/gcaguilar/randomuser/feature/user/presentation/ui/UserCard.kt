@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +25,7 @@ fun UserCard(
     email: String,
     picture: String,
     phone: String,
+    onRemoveUser: () -> Unit,
     onClickUser: () -> Unit
 ) {
     Surface(
@@ -47,6 +52,15 @@ fun UserCard(
                 Text(name)
                 Text(email)
                 Text(phone)
+            }
+            IconButton(
+                modifier = Modifier,
+                onClick = onRemoveUser
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Delete user",
+                )
             }
         }
     }
