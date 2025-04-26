@@ -99,4 +99,28 @@ class FeedRandomUserViewModelTest : KoinTest {
                 }
             }
         }
+
+//    @Test
+//    fun `Given that a user click on delete button of nicole, when the action is performed, then a new correct state is emitted`() =
+//        runTest {
+//            val expected = UIState(
+//                users = firstPageList.subList(1, firstPageList.size).toUserModel(),
+//                seed = "",
+//                page = 1,
+//                state = State.Idle,
+//                searchText = "nicole"
+//            )
+//
+//            viewModel.uiState.test {
+//                skipItems(1)
+//                viewModel.handle(FeedUserIntent.DeleteUser("b5839964-85a7-4d46-bb9b-7f34e6ea303a"))
+//
+//                with(awaitItem()) {
+//                    assertEquals(expected.users, this.users)
+//                    assertEquals(expected.page, this.page)
+//                    assertEquals(expected.state, this.state)
+//                    assertEquals(expected.searchText, this.searchText)
+//                }
+//            }
+//        }
 }
