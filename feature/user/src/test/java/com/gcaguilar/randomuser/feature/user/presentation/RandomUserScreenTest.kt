@@ -29,7 +29,7 @@ import org.robolectric.annotation.GraphicsMode
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(qualifiers = RobolectricDeviceQualifiers.Pixel5)
 class RandomUserScreenTest : KoinTest {
-    private val viewModel: RandomUserViewModel by inject()
+    private val viewModel: FeedRandomUserViewModel by inject()
 
     @get:Rule
     val coroutineRule = MainCoroutineRule()
@@ -48,7 +48,7 @@ class RandomUserScreenTest : KoinTest {
                 factory<UserRemoteDataSource> { RandomUserApiClient(get()) }
                 factory<RandomUserRepository> { RandomUserRepository(get(), get()) }
                 factory<GetUsers> { GetUsers(get()) }
-                viewModelOf(::RandomUserViewModel)
+                viewModelOf(::FeedRandomUserViewModel)
             },
             networkTestModule
         )
@@ -63,7 +63,7 @@ class RandomUserScreenTest : KoinTest {
     private fun renderScreen() {
         composeTestRule.setContent {
             RandomUserTheme {
-                RandomUserScreen(
+                FeedRandomUserScreen(
                     viewModel = viewModel
                 )
             }

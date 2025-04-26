@@ -10,9 +10,9 @@ import com.gcaguilar.randomuser.feature.user.presentation.ui.InfiniteLazyList
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun RandomUserScreen(
+fun FeedRandomUserScreen(
     modifier: Modifier = Modifier,
-    viewModel: RandomUserViewModel = koinViewModel()
+    viewModel: FeedRandomUserViewModel = koinViewModel()
 ) {
     val state = viewModel.uiState.collectAsStateWithLifecycle()
 
