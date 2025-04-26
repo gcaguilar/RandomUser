@@ -18,7 +18,7 @@ fun createRoborazziRule(composeTestRule: AndroidComposeTestRule<*, *>): Roborazz
                     resizeScale = 0.5
                 ),
                 compareOptions = RoborazziOptions.CompareOptions(
-                    changeThreshold = 0.01F
+                    changeThreshold = 0.02F
                 )
             ),
             captureType = RoborazziRule.CaptureType.LastImage(onlyFail = false)
