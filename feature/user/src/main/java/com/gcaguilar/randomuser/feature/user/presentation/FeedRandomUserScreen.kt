@@ -32,7 +32,8 @@ fun FeedRandomUserScreen(
             listState = rememberLazyListState(),
             onClickUser = {
                 // TODO
-            }
+            },
+            onRemoveUser = { viewModel.handle(FeedUserIntent.DeleteUser(it))}
         )
     }
 }
