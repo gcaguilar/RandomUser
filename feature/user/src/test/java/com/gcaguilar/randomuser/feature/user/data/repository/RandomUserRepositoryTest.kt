@@ -6,17 +6,10 @@ import com.gcaguilar.randomuser.feature.user.fake.FakeUserLocalDataSource
 import com.gcaguilar.randomuser.feature.user.modules.networkTestModule
 import com.gcaguilar.randomuser.feature.user.mother.firstPageList
 import com.gcaguilar.randomuser.userlocalstorageapi.UserLocalDataSource
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.HttpTimeout
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.http.HttpStatusCode
-import io.ktor.http.headersOf
-import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.koin.core.context.GlobalContext.get
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
