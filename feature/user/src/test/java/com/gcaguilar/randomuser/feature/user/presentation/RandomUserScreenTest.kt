@@ -1,6 +1,10 @@
 package com.gcaguilar.randomuser.feature.user.presentation
 
-import androidx.test.runner.AndroidJUnit4
+import android.app.Application
+import android.content.pm.ActivityInfo
+import androidx.activity.ComponentActivity
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.gcaguilar.randomuser.MainCoroutineRule
 import com.gcaguilar.randomuser.createRoborazziRule
 import com.gcaguilar.randomuser.createScreenshotTestComposeRule
@@ -16,12 +20,15 @@ import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestWatcher
+import org.junit.runner.Description
 import org.junit.runner.RunWith
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
+import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
@@ -31,16 +38,29 @@ import org.robolectric.annotation.GraphicsMode
 class RandomUserScreenTest : KoinTest {
     private val viewModel: FeedRandomUserViewModel by inject()
 
-    @get:Rule
-    val coroutineRule = MainCoroutineRule()
+    @get:Rule(order = 1)
+    val addActivityToRobolectricRule = object : TestWatcher() {
+        override fun starting(description: Description?) {
+            super.starting(description)
+            val appContext: Application = ApplicationProvider.getApplicationContext()
+            val activityInfo = ActivityInfo().apply {
+                name = ComponentActivity::class.java.name
+                packageName = appContext.packageName
+            }
+            shadowOf(appContext.packageManager).addOrUpdateActivity(activityInfo)
+        }
+    }
 
-    @get:Rule
+    @get:Rule(order = 2)
     val composeTestRule = createScreenshotTestComposeRule()
 
-    @get:Rule
+    @get:Rule(order = 3)
+    val coroutineRule = MainCoroutineRule()
+
+    @get:Rule(order = 4)
     val roborazziRule = createRoborazziRule(composeTestRule)
 
-    @get:Rule
+    @get:Rule(order = 5)
     val koinTestRule = KoinTestRule.create {
         modules(
             module {
