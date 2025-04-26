@@ -41,6 +41,7 @@ android {
 
 dependencies {
     implementation(project(":feature:user"))
+    implementation(project(":shared:ui"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -52,5 +53,4 @@ dependencies {
     implementation(libs.androidx.navigation)
 
     testImplementation(libs.junit)
-
 }
