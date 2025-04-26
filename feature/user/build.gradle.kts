@@ -63,6 +63,7 @@ dependencies {
     testImplementation(libs.koin.test.junit4)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.bundles.screenshot.testing)
+    testImplementation(libs.turbine)
 
     debugImplementation(libs.androidx.ui.test.manifest)
 }
