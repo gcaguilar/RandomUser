@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.pm.ActivityInfo
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
 import androidx.test.core.app.ApplicationProvider
@@ -14,6 +15,7 @@ import com.gcaguilar.randomuser.createScreenshotTestComposeRule
 import com.gcaguilar.randomuser.feature.user.data.api.RandomUserApiClient
 import com.gcaguilar.randomuser.feature.user.data.api.UserRemoteDataSource
 import com.gcaguilar.randomuser.feature.user.data.repository.RandomUserRepository
+import com.gcaguilar.randomuser.feature.user.domain.DeleteUser
 import com.gcaguilar.randomuser.feature.user.domain.GetUsers
 import com.gcaguilar.randomuser.feature.user.fake.FakeUserLocalDataSource
 import com.gcaguilar.randomuser.feature.user.modules.networkTestModule
@@ -73,6 +75,7 @@ class RandomUserScreenTest : KoinTest {
                 factory<UserRemoteDataSource> { RandomUserApiClient(get()) }
                 factory<RandomUserRepository> { RandomUserRepository(get(), get()) }
                 factory<GetUsers> { GetUsers(get()) }
+                factory<DeleteUser> { DeleteUser(get()) }
                 viewModelOf(::FeedRandomUserViewModel)
             },
             networkTestModule
@@ -107,6 +110,16 @@ class RandomUserScreenTest : KoinTest {
             composeTestRule
                 .onNodeWithTag("searchField")
                 .performTextClearance()
+        }
+
+    @Test
+    fun `Given that a user enters the screen with data and click on delete button of some user whGetUsersen the action is performed then the results are updated`() =
+        runTest {
+            renderScreen()
+
+            composeTestRule
+                .onNodeWithTag("DeleteNicole Gomez")
+                .performClick()
         }
 
     private fun renderScreen() {
