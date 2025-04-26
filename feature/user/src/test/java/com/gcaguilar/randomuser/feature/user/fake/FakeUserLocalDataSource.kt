@@ -1,5 +1,6 @@
 package com.gcaguilar.randomuser.feature.user.fake
 
+import com.gcaguilar.randomuser.feature.user.mother.firstPageList
 import com.gcaguilar.randomuser.userlocalstorageapi.UserLocalDataSource
 import com.gcaguilar.randomuser.userlocalstorageapi.UserModelDetailed
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +16,6 @@ class FakeUserLocalDataSource : UserLocalDataSource {
     }
 
     override fun getUsers(): Flow<List<UserModelDetailed>> {
-        return flowOf(users)
+        return flowOf(firstPageList)
     }
 }

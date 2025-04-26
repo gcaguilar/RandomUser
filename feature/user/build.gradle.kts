@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.roborazzi)
+    alias(libs.plugins.kotlin.compose)
     kotlin("plugin.serialization")
 }
 
@@ -33,10 +34,16 @@ android {
         jvmTarget = "11"
     }
     testOptions.unitTests.isIncludeAndroidResources = true
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
     implementation(project(":user-localstorage-api"))
+    implementation(project(":shared:test"))
+    implementation(project(":shared:ui"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.ktor)
     implementation(libs.kotlinx.coroutines.core)
