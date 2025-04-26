@@ -21,7 +21,7 @@ data class UIState(
     val state: State = State.Loading,
 )
 
-class RandomUserViewModel(
+class FeedRandomUserViewModel(
     private val getUsers: GetUsers
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UIState())
