@@ -2,6 +2,7 @@ package com.gcaguilar.randomuser.feature.user.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gcaguilar.randomuser.feature.user.domain.DeleteUser
 import com.gcaguilar.randomuser.feature.user.domain.GetUsers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,10 +25,13 @@ data class UIState(
 
 sealed class FeedUserIntent {
     data class TextChanged(val query: String) : FeedUserIntent()
+    data class DeleteUser(val uuid: String) : FeedUserIntent()
+
 }
 
 class FeedRandomUserViewModel(
-    private val getUsers: GetUsers
+    private val getUsers: GetUsers,
+    private val deleteUser: DeleteUser
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UIState())
     private val searchText: MutableStateFlow<String> = MutableStateFlow("")
@@ -49,6 +53,7 @@ class FeedRandomUserViewModel(
     fun handle(intent: FeedUserIntent) {
         when (intent) {
             is FeedUserIntent.TextChanged -> onTextChange(intent.query)
+            is FeedUserIntent.DeleteUser -> onDeleteUser(intent.uuid)
         }
     }
 
@@ -75,6 +80,12 @@ class FeedRandomUserViewModel(
         }
         searchText.update {
             ""
+        }
+    }
+
+    private fun onDeleteUser(uuid: String) {
+        viewModelScope.launch {
+            deleteUser(uuid)
         }
     }
 }

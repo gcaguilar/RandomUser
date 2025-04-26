@@ -25,7 +25,8 @@ val databaseModule = module {
     }
     factory<UserLocalDataSource> {
         UserLocalDataSourceImpl(
-            userDao = get()
+            userDao = get(),
+            deletedDao = get()
         )
     }
 }

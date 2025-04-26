@@ -15,7 +15,9 @@ import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class RandomUserRepositoryTest : KoinTest {
     private val localDataSource: UserLocalDataSource by inject()
@@ -43,7 +45,7 @@ class RandomUserRepositoryTest : KoinTest {
         runTest {
             userRepository.getPage(0, "some feed")
 
-            val insertedUser = (localDataSource as FakeUserLocalDataSource).lastInsertedUser
+            val insertedUser = (localDataSource as FakeUserLocalDataSource).users.last()
             assertEquals(firstPageList.last(), insertedUser)
         }
 
@@ -52,7 +54,17 @@ class RandomUserRepositoryTest : KoinTest {
         runTest {
             userRepository.getPage(666, "some feed")
 
-            val insertedUser = (localDataSource as FakeUserLocalDataSource).lastInsertedUser
-            assertNull(insertedUser)
+            assertTrue((localDataSource as FakeUserLocalDataSource).users.isEmpty())
+        }
+
+    @Test
+    fun `Given that a user is deleted, when the deletion is performed, then the user should not be in the list of users and their UUID should be in the list of deleted users`() =
+        runTest {
+            userRepository.getPage(0, "some feed")
+
+            userRepository.deleteUser(firstPageList[0].uuid)
+
+            assertNull((localDataSource as FakeUserLocalDataSource).users.find { it.uuid == firstPageList[0].uuid })
+            assertNotNull((localDataSource as FakeUserLocalDataSource).deletedUsers.find { it == firstPageList[0].uuid })
         }
 }

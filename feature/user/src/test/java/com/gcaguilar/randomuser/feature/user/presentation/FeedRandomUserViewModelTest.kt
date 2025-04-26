@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import com.gcaguilar.randomuser.feature.user.data.api.RandomUserApiClient
 import com.gcaguilar.randomuser.feature.user.data.api.UserRemoteDataSource
 import com.gcaguilar.randomuser.feature.user.data.repository.RandomUserRepository
+import com.gcaguilar.randomuser.feature.user.domain.DeleteUser
 import com.gcaguilar.randomuser.feature.user.domain.GetUsers
 import com.gcaguilar.randomuser.feature.user.fake.FakeUserLocalDataSource
 import com.gcaguilar.randomuser.feature.user.modules.networkTestModule
@@ -21,6 +22,7 @@ import kotlin.test.assertEquals
 
 class FeedRandomUserViewModelTest : KoinTest {
     private val getUser: GetUsers by inject()
+    private val deleteUser: DeleteUser by inject()
     private lateinit var viewModel: FeedRandomUserViewModel
 
     @get:Rule
@@ -31,6 +33,7 @@ class FeedRandomUserViewModelTest : KoinTest {
                 single<UserRemoteDataSource> { RandomUserApiClient(get()) }
                 factory<RandomUserRepository> { RandomUserRepository(get(), get()) }
                 factory<GetUsers> { GetUsers(get()) }
+                factory<DeleteUser> { DeleteUser(get()) }
             },
             networkTestModule
         )
@@ -38,7 +41,7 @@ class FeedRandomUserViewModelTest : KoinTest {
 
     @Before
     fun setUp() {
-        viewModel = FeedRandomUserViewModel(getUser)
+        viewModel = FeedRandomUserViewModel(getUser, deleteUser)
     }
 
     @Test
