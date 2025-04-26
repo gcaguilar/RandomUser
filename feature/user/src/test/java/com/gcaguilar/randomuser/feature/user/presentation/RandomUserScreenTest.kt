@@ -3,6 +3,9 @@ package com.gcaguilar.randomuser.feature.user.presentation
 import android.app.Application
 import android.content.pm.ActivityInfo
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performTextClearance
+import androidx.compose.ui.test.performTextInput
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.gcaguilar.randomuser.MainCoroutineRule
@@ -17,6 +20,7 @@ import com.gcaguilar.randomuser.feature.user.modules.networkTestModule
 import com.gcaguilar.randomuser.ui.theme.RandomUserTheme
 import com.gcaguilar.randomuser.userlocalstorageapi.UserLocalDataSource
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
@@ -32,6 +36,7 @@ import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(qualifiers = RobolectricDeviceQualifiers.Pixel5)
@@ -78,6 +83,30 @@ class RandomUserScreenTest : KoinTest {
     fun `Given the screen is opened when the database contains data then the list of users is displayed`() =
         runTest {
             renderScreen()
+        }
+
+    @Test
+    fun `Given that a user enters the screen with data and types something in the search box when the action is performed then the results are updated`() =
+        runTest {
+            renderScreen()
+
+            composeTestRule
+                .onNodeWithTag("searchField")
+                .performTextInput("nicole")
+        }
+
+    @Test
+    fun `Given that a user enters the screen with data and delete text in the search box when the action is performed then the results are updated`() =
+        runTest {
+            renderScreen()
+
+            composeTestRule
+                .onNodeWithTag("searchField")
+                .performTextInput("nicole")
+
+            composeTestRule
+                .onNodeWithTag("searchField")
+                .performTextClearance()
         }
 
     private fun renderScreen() {
