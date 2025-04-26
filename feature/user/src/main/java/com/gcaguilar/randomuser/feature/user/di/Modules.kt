@@ -3,6 +3,7 @@ package com.gcaguilar.randomuser.feature.user.di
 import com.gcaguilar.randomuser.feature.user.data.api.RandomUserApiClient
 import com.gcaguilar.randomuser.feature.user.data.api.UserRemoteDataSource
 import com.gcaguilar.randomuser.feature.user.data.repository.RandomUserRepository
+import com.gcaguilar.randomuser.feature.user.domain.DeleteUser
 import com.gcaguilar.randomuser.feature.user.domain.GetUsers
 import com.gcaguilar.randomuser.feature.user.presentation.FeedRandomUserViewModel
 import io.ktor.client.HttpClient
@@ -50,6 +51,11 @@ val feedDataModule = module {
 val feedDomainModule = module {
     factory {
         GetUsers(
+            randomUserRepository = get()
+        )
+    }
+    factory {
+        DeleteUser(
             randomUserRepository = get()
         )
     }

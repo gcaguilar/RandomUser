@@ -19,4 +19,9 @@ class RandomUserRepository(
     fun getUsers(): Flow<List<UserModelDetailed>> {
         return localDataSource.getUsers()
     }
+
+    suspend fun deleteUser(uuid: String) {
+        localDataSource.insertInDelete(uuid)
+        localDataSource.deleteUser(uuid)
+    }
 }
