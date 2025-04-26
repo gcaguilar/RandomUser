@@ -23,7 +23,7 @@ fun FeedRandomUserScreen(
             userList = state.value.users,
             listState = rememberLazyListState(),
             onClickUser = {
-                //TODO
+                // TODO
             }
         )
     }
