@@ -15,9 +15,11 @@ class GetUsers(
             randomUserRepository.getUsers()
         ) { text, users ->
             users.let { userList ->
-                if (text.isNotEmpty()) {
+                if (text.trimIndent().isNotEmpty()) {
                     userList.filter { user ->
-                        user.name.contains(text) || user.surname.contains(text) || user.email.contains(text)
+                        user.name.contains(text, ignoreCase = true) ||
+                        user.surname.contains(text, ignoreCase = true) ||
+                        user.email.contains(text, ignoreCase = true)
                     }
                 } else {
                     userList
