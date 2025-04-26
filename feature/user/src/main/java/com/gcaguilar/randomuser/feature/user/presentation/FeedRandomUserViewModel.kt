@@ -24,7 +24,6 @@ data class UIState(
 
 sealed class FeedUserIntent {
     data class TextChanged(val query: String) : FeedUserIntent()
-    data object Clear : FeedUserIntent()
 }
 
 class FeedRandomUserViewModel(
@@ -39,7 +38,8 @@ class FeedRandomUserViewModel(
             getUsers(searchText).collect { users ->
                 _uiState.update {
                     it.copy(
-                        users = users.toUserModel()
+                        users = users.toUserModel(),
+                        state = State.Idle
                     )
                 }
             }
@@ -48,7 +48,6 @@ class FeedRandomUserViewModel(
 
     fun handle(intent: FeedUserIntent) {
         when (intent) {
-            FeedUserIntent.Clear -> onClearInput()
             is FeedUserIntent.TextChanged -> onTextChange(intent.query)
         }
     }
