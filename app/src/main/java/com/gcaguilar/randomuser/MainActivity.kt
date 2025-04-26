@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.gcaguilar.randomuser.feature.user.presentation.FeedRandomUserScreen
 import com.gcaguilar.randomuser.ui.theme.RandomUserTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,10 +25,12 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "",
+                        startDestination = Routes.FEED,
                         modifier = Modifier.padding(innerPadding)
                     ) {
-
+                        composable(Routes.FEED) {
+                            FeedRandomUserScreen()
+                        }
                     }
                 }
             }
