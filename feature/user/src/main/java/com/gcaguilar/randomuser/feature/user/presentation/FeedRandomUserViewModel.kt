@@ -19,23 +19,63 @@ data class UIState(
     val seed: String = UUID.randomUUID().toString(),
     val page: Int = 1,
     val state: State = State.Loading,
+    val searchText: String = ""
 )
+
+sealed class FeedUserIntent {
+    data class TextChanged(val query: String) : FeedUserIntent()
+    data object Clear : FeedUserIntent()
+}
 
 class FeedRandomUserViewModel(
     private val getUsers: GetUsers
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UIState())
+    private val searchText: MutableStateFlow<String> = MutableStateFlow("")
     val uiState = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
-            getUsers().collect { users ->
+            getUsers(searchText).collect { users ->
                 _uiState.update {
                     it.copy(
                         users = users.toUserModel()
                     )
                 }
             }
+        }
+    }
+
+    fun handle(intent: FeedUserIntent) {
+        when (intent) {
+            FeedUserIntent.Clear -> onClearInput()
+            is FeedUserIntent.TextChanged -> onTextChange(intent.query)
+        }
+    }
+
+    private fun onTextChange(query: String) {
+        if (query.isNotEmpty()) {
+            _uiState.update {
+                it.copy(
+                    searchText = query
+                )
+            }
+            searchText.update {
+                query
+            }
+        } else {
+            onClearInput()
+        }
+    }
+
+    private fun onClearInput() {
+        _uiState.update {
+            it.copy(
+                searchText = ""
+            )
+        }
+        searchText.update {
+            ""
         }
     }
 }
