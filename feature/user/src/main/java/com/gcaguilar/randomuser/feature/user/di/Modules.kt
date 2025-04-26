@@ -1,8 +1,10 @@
-package com.gcaguilar.randomuser.feature.user.data.di
+package com.gcaguilar.randomuser.feature.user.di
 
 import com.gcaguilar.randomuser.feature.user.data.api.RandomUserApiClient
 import com.gcaguilar.randomuser.feature.user.data.api.UserRemoteDataSource
 import com.gcaguilar.randomuser.feature.user.data.repository.RandomUserRepository
+import com.gcaguilar.randomuser.feature.user.domain.GetUsers
+import com.gcaguilar.randomuser.feature.user.presentation.FeedRandomUserViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpTimeout
@@ -12,9 +14,10 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
-val dataModule = module {
+val feedDataModule = module {
     single<HttpClient> {
         HttpClient(OkHttp) {
             install(ContentNegotiation) {
@@ -42,4 +45,15 @@ val dataModule = module {
             remoteDataSource = get()
         )
     }
+}
+
+val feedDomainModule = module {
+    factory {
+        GetUsers(
+            randomUserRepository = get()
+        )
+    }
+}
+val feedPresentationModule = module {
+    viewModelOf(::FeedRandomUserViewModel)
 }
