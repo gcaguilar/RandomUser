@@ -19,6 +19,7 @@ navigation = "2.8.9"
 coil = "3.1.0"
 robolectric = "4.14.1"
 roborazzi = "1.43.1"
+junit4-compose = "1.8.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,18 +48,19 @@ ktor-mock-client = { group = "io.ktor", name = "ktor-client-mock", version.ref =
 ktor-logger = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
-koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin"  }
-koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin"  }
-koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin"  }
-koin-test= { group = "io.insert-koin", name = "koin-test", version.ref = "koin"  }
-koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4", version.ref = "koin"  }
-androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation"  }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
+koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4", version.ref = "koin" }
+androidx-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-network = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
 roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
 roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-junit-rule", version.ref = "roborazzi" }
+androidx-compose-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "junit4-compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -73,4 +75,5 @@ roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 ktor = ["ktor-core", "ktor-okhttp-client", "ktor-content-negociator",
     "ktor-serialization-json", "ktor-logger", "kotlinx-serialization-json"]
 coil = ["coil-compose", "coil-network"]
-screenshot-testing = ["robolectric", "roborazzi", "roborazzi-compose", "roborazzi-rule", "androidx-espresso-core"]
+screenshot-testing = ["robolectric", "roborazzi", "roborazzi-compose", "roborazzi-rule",
+    "androidx-espresso-core", "androidx-compose-junit4"]
