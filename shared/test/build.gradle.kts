@@ -43,5 +43,4 @@ dependencies {
     implementation(libs.bundles.screenshot.testing)
     implementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)
-    debugImplementation(libs.androidx.ui.test.manifest)
 }
