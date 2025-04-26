@@ -33,10 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    testOptions.unitTests.isIncludeAndroidResources = true
     buildFeatures {
         compose = true
     }
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
@@ -51,7 +51,6 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.tooling.preview)
@@ -64,5 +63,6 @@ dependencies {
     testImplementation(libs.koin.test.junit4)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.bundles.screenshot.testing)
+
     debugImplementation(libs.androidx.ui.test.manifest)
 }
