@@ -7,4 +7,5 @@ interface UserLocalDataSource {
     fun getUsers(): Flow<List<UserModelDetailed>>
     suspend fun insertInDelete(uuid: String)
     suspend fun deleteUser(uuid: String)
+    suspend fun getDeletedUsers(): List<String>
 }

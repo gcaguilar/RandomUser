@@ -30,5 +30,14 @@ class UserLocalDataSourceImpl(
 
     override suspend fun deleteUser(uuid: String) {
         return userDao.deleteUser(uuid)
+        withContext(Dispatchers.IO) {
+            userDao.deleteUser(uuid)
+        }
+    }
+
+    override suspend fun getDeletedUsers(): List<String> {
+        return withContext(Dispatchers.IO) {
+            deletedDao.getAllDeletedUsers().map { it.uuid }
+        }
     }
 }
