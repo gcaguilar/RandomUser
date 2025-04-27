@@ -6,6 +6,7 @@ import com.gcaguilar.randomuser.database.dao.UserDao
 import com.gcaguilar.randomuser.database.datasource.UserLocalDataSourceImpl
 import com.gcaguilar.randomuser.database.db.UserDatabase
 import com.gcaguilar.randomuser.userlocalstorageapi.UserLocalDataSource
+import kotlinx.coroutines.CoroutineDispatcher
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -26,7 +27,8 @@ val databaseModule = module {
     factory<UserLocalDataSource> {
         UserLocalDataSourceImpl(
             userDao = get(),
-            deletedDao = get()
+            deletedDao = get(),
+            dispatcher = get<CoroutineDispatcher>()
         )
     }
 }
