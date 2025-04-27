@@ -13,12 +13,3 @@ data class UserModelDetailed(
     val state: String,
     val registeredDate: String,
 )
-
-data class UserModel(
-    val uuid: String,
-    val name: String,
-    val surname: String,
-    val email: String,
-    val picture: String,
-    val phone: String
-)
