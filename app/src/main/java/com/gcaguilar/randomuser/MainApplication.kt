@@ -17,7 +17,8 @@ class MainApplication : Application() {
                 databaseModule,
                 feedDataModule,
                 feedDomainModule,
-                feedPresentationModule
+                feedPresentationModule,
+                userDetailModule
             )
         }
     }
