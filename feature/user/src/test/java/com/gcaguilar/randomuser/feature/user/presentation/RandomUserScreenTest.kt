@@ -7,6 +7,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
+import androidx.navigation.compose.rememberNavController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.gcaguilar.randomuser.MainCoroutineRule
@@ -127,7 +128,6 @@ class RandomUserScreenTest {
                 .performTextClearance()
             testFlow.update { firstPageList }
             advanceUntilIdle()
-
         }
 
     @Test
@@ -151,6 +151,7 @@ class RandomUserScreenTest {
         composeTestRule.setContent {
             RandomUserTheme {
                 FeedRandomUserScreen(
+                    navController = rememberNavController(),
                     viewModel = viewModel
                 )
             }
