@@ -22,6 +22,7 @@ roborazzi = "1.43.1"
 junit4-compose = "1.8.0"
 test-manifest = "1.8.0"
 turbine = "1.2.0"
+mockk = "1.14.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -64,6 +65,7 @@ roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi
 roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-junit-rule", version.ref = "roborazzi" }
 androidx-compose-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "junit4-compose" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
