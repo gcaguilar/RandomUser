@@ -134,3 +134,136 @@ val firstPageList = listOf(
         registeredDate = "2006-07-16T19:37:16.562Z"
     )
 )
+
+val secondPage = listOf(
+    UserModelDetailed(
+        uuid = "541d8f44-f3ae-47a7-89cf-be2ae4a03ac3",
+        name = "George",
+        surname = "Freeman",
+        email = "george.freeman@example.com",
+        picture = "https://randomuser.me/api/portraits/med/men/66.jpg",
+        phone = "01236 899783",
+        gender = "male",
+        street = "North Road",
+        city = "Winchester",
+        state = "United Kingdom",
+        registeredDate = "2005-12-01T21:50:48.580Z"
+    ),
+    UserModelDetailed(
+        uuid = "9eefcc56-4872-4703-ba52-42371d5a6450",
+        name = "Roberto",
+        surname = "de Souza",
+        email = "roberto.desouza@example.com",
+        picture = "https://randomuser.me/api/portraits/med/men/55.jpg",
+        phone = "(46) 4827-8131",
+        gender = "male",
+        street = "Rua Dois",
+        city = "Brasília",
+        state = "Brazil",
+        registeredDate = "2008-11-24T21:54:23.569Z"
+    ),
+    UserModelDetailed(
+        uuid = "af0f7c31-e215-4bc3-bffb-2c0a8ee44415",
+        name = "Angus",
+        surname = "Roberts",
+        email = "angus.roberts@example.com",
+        picture = "https://randomuser.me/api/portraits/med/men/3.jpg",
+        phone = "(949)-522-9504",
+        gender = "male",
+        street = "Kilmore Street",
+        city = "Napier",
+        state = "New Zealand",
+        registeredDate = "2013-01-10T06:10:31.730Z"
+    ),
+    UserModelDetailed(
+        uuid = "0d7e4e66-f843-4795-bfa2-86a3614654df",
+        name = "Leona",
+        surname = "Gautier",
+        email = "leona.gautier@example.com",
+        picture = "https://randomuser.me/api/portraits/med/women/8.jpg",
+        phone = "075 384 90 59",
+        gender = "female",
+        street = "Rue des Ecrivains",
+        city = "Le Mouret",
+        state = "Switzerland",
+        registeredDate = "2017-06-05T00:15:13.045Z"
+    ),
+    UserModelDetailed(
+        uuid = "1086cc9b-cdb4-477a-90c1-725a8267a7b3",
+        name = "Zoremir",
+        surname = "Repetilo",
+        email = "zoremir.repetilo@example.com",
+        picture = "https://randomuser.me/api/portraits/med/men/15.jpg",
+        phone = "(066) R25-7001",
+        gender = "male",
+        street = "Irchana",
+        city = "Pogrebishche",
+        state = "Ukraine",
+        registeredDate = "2004-02-05T05:21:56.347Z"
+    ),
+    UserModelDetailed(
+        uuid = "80d020f6-1ec2-45fd-bf31-9e61e14d55d4",
+        name = "Lucas",
+        surname = "Lee",
+        email = "lucas.lee@example.com",
+        picture = "https://randomuser.me/api/portraits/med/men/25.jpg",
+        phone = "(332)-872-5038",
+        gender = "male",
+        street = "Pt Chevalier Road",
+        city = "Porirua",
+        state = "New Zealand",
+        registeredDate = "2016-06-28T10:11:11.094Z"
+    ),
+    UserModelDetailed(
+        uuid = "558d1a40-68b2-49f5-87a6-d4cd252a4f5a",
+        name = "Maxine",
+        surname = "Harrison",
+        email = "maxine.harrison@example.com",
+        picture = "https://randomuser.me/api/portraits/med/women/84.jpg",
+        phone = "(226) 939-3207",
+        gender = "female",
+        street = "Robinson Rd",
+        city = "Fargo",
+        state = "United States",
+        registeredDate = "2020-06-05T23:34:51.640Z"
+    ),
+    UserModelDetailed(
+        uuid = "7224ea6c-e815-485c-909c-06766ba12a58",
+        name = "Joona",
+        surname = "Ojala",
+        email = "joona.ojala@example.com",
+        picture = "https://randomuser.me/api/portraits/med/men/33.jpg",
+        phone = "03-315-135",
+        gender = "male",
+        street = "Pirkankatu",
+        city = "Lappeenranta",
+        state = "Finland",
+        registeredDate = "2016-07-22T14:24:34.694Z"
+    ),
+    UserModelDetailed(
+        uuid = "c65d80f6-f944-4f90-aac8-3ac8e972c853",
+        name = "Jeppe",
+        surname = "Mortensen",
+        email = "jeppe.mortensen@example.com",
+        picture = "https://randomuser.me/api/portraits/med/men/71.jpg",
+        phone = "58565936",
+        gender = "male",
+        street = "Lindevej",
+        city = "Skaerbaek",
+        state = "Denmark",
+        registeredDate = "2014-04-06T13:18:01.010Z"
+    ),
+    UserModelDetailed(
+        uuid = "b736bf0a-f946-4c53-bec1-a716d7f08ff9",
+        name = "Viktor",
+        surname = "Dyrdal",
+        email = "viktor.dyrdal@example.com",
+        picture = "https://randomuser.me/api/portraits/med/men/66.jpg",
+        phone = "57554840",
+        gender = "male",
+        street = "Holmboes gate",
+        city = "Vik",
+        state = "Norway",
+        registeredDate = "2013-06-04T19:01:10.509Z"
+    )
+)
