@@ -10,9 +10,14 @@ class RandomUserRepository(
     private val remoteDataSource: UserRemoteDataSource
 ) {
     suspend fun getPage(page: Int, seed: String): Result<Unit> {
+        val deletedUsers = localDataSource.getDeletedUsers()
         return remoteDataSource.getUsers(page, seed)
             .mapCatching { result ->
-                localDataSource.insertAll(result)
+                result.filter { user ->
+                    user.uuid !in deletedUsers
+                }.also {
+                    localDataSource.insertAll(result)
+                }
             }
     }
 
