@@ -60,7 +60,7 @@ class UserDetailViewModel(
 
 private fun UserModelDetailed.toSuccessUIState(): UIState {
     return UIState(
-        name = this.name + this.surname,
+        name = this.name + " " + this.surname,
         gender = this.gender,
         street = this.street,
         city = this.city,

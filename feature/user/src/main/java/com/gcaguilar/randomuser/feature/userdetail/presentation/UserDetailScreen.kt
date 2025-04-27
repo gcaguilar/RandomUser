@@ -72,7 +72,6 @@ private fun UserDetail(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
             .padding(
                 top = 32.dp,
                 start = 16.dp,
