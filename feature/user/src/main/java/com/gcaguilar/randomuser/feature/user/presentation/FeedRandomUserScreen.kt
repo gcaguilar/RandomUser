@@ -37,7 +37,15 @@ fun FeedRandomUserScreen(
 
     LaunchedEffect(SnackBarEvent) {
         viewModel.snackbarMessage.collectLatest {
-          //  onReceiveError()
+            //  onReceiveError()
+        }
+    }
+    LaunchedEffect(Unit) {
+        viewModel.handle(FeedUserIntent.StartObserving)
+    }
+    if (state.value.users.isEmpty()) {
+        LaunchedEffect(Unit) {
+            viewModel.handle(FeedUserIntent.RequestMoreUsers)
         }
     }
 
