@@ -1,27 +1,24 @@
 package com.gcaguilar.randomuser.feature.user.presentation
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
+import com.gcaguilar.randomuser.feature.navigation.UserDetail
 import com.gcaguilar.randomuser.feature.user.presentation.ui.InfiniteLazyList
 import com.gcaguilar.randomuser.feature.user.presentation.ui.SearchBox
+import com.gcaguilar.randomuser.ui.theme.ui.Error
+import com.gcaguilar.randomuser.ui.theme.ui.Loading
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
@@ -29,6 +26,7 @@ private val SnackBarEvent = "SnackBarEvent"
 
 @Composable
 fun FeedRandomUserScreen(
+    navController: NavHostController,
     modifier: Modifier = Modifier,
     viewModel: FeedRandomUserViewModel = koinViewModel()
 ) {
@@ -60,7 +58,7 @@ fun FeedRandomUserScreen(
             onTextChanged = { viewModel.handle(FeedUserIntent.TextChanged(it)) },
             onRemoveUser = { viewModel.handle(FeedUserIntent.DeleteUser(it)) },
             onLoadMore = { viewModel.handle(FeedUserIntent.RequestMoreUsers) },
-            onClickUser = { },
+            onClickUser = { navController.navigate(UserDetail(it)) },
         )
 
         State.Error -> Error(
@@ -68,32 +66,6 @@ fun FeedRandomUserScreen(
                 viewModel.handle(FeedUserIntent.RequestMoreUsers)
             }
         )
-    }
-}
-
-@Composable
-fun Loading(modifier: Modifier) {
-    Box(
-        modifier = modifier.fillMaxWidth(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.wrapContentSize()
-        )
-    }
-}
-
-@Composable
-fun Error(onRetry: () -> Unit) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Button(
-            onClick = onRetry
-        ) {
-            Text("Retry")
-        }
     }
 }
 
