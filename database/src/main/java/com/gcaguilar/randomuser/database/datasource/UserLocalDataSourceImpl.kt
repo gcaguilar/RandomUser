@@ -1,5 +1,6 @@
 package com.gcaguilar.randomuser.database.datasource
 
+import android.content.res.Resources.NotFoundException
 import com.gcaguilar.randomuser.database.dao.DeletedDao
 import com.gcaguilar.randomuser.database.dao.UserDao
 import com.gcaguilar.randomuser.database.entity.DeleteEntity
@@ -46,6 +47,20 @@ class UserLocalDataSourceImpl(
     override suspend fun getDeletedUsers(): List<String> {
         return withContext(dispatcher) {
             deletedDao.getAllDeletedUsers().map { it.uuid }
+        }
+    }
+
+    override suspend fun getUserById(uuid: String): Result<UserModelDetailed> {
+        return withContext(dispatcher) {
+            try {
+                userDao.getUserById(uuid)?.let {
+                    Result.success(it.toUserModelDetailed())
+                } ?: run {
+                    Result.failure(NotFoundException("$uuid not found"))
+                }
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
         }
     }
 }

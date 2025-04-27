@@ -8,4 +8,5 @@ interface UserLocalDataSource {
     suspend fun insertInDelete(uuid: String)
     suspend fun deleteUser(uuid: String)
     suspend fun getDeletedUsers(): List<String>
+    suspend fun getUserById(uuid: String): Result<UserModelDetailed>
 }
