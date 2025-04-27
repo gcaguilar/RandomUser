@@ -33,6 +33,7 @@ sealed class FeedUserIntent {
     data class TextChanged(val query: String) : FeedUserIntent()
     data class DeleteUser(val uuid: String) : FeedUserIntent()
     data object RequestMoreUsers : FeedUserIntent()
+    data object StartObserving : FeedUserIntent()
 }
 
 class FeedRandomUserViewModel(
@@ -46,28 +47,26 @@ class FeedRandomUserViewModel(
     private val _snackbarMessage = MutableSharedFlow<Unit>(replay = 0)
     val snackbarMessage = _snackbarMessage.asSharedFlow()
 
-    init {
+    private fun startObserve() {
         viewModelScope.launch {
             getUsers(searchText).collect { users ->
-                if (users.isEmpty()) {
-                    onRequestNextPage()
-                } else {
-                    _uiState.update {
-                        it.copy(
-                            users = users.toUserModel(),
-                            state = State.Idle
-                        )
-                    }
+                _uiState.update {
+                    it.copy(
+                        users = users.toUserModel(),
+                        state = State.Idle
+                    )
                 }
             }
         }
     }
+
 
     fun handle(intent: FeedUserIntent) {
         when (intent) {
             is FeedUserIntent.TextChanged -> onTextChange(intent.query)
             is FeedUserIntent.DeleteUser -> onDeleteUser(intent.uuid)
             FeedUserIntent.RequestMoreUsers -> onRequestNextPage()
+            FeedUserIntent.StartObserving -> startObserve()
         }
     }
 
@@ -117,27 +116,30 @@ class FeedRandomUserViewModel(
                 )
             }
             requestNextPage(uiState.value.page, uiState.value.seed)
-                .fold({
-                    _uiState.update {
-                        it.copy(
-                            page = it.page + 1,
-                            isRequestingMoreItems = false,
-                        )
+                .fold(
+                    onSuccess = { _ ->
+                        _uiState.update {
+                            it.copy(
+                                page = it.page + 1,
+                                isRequestingMoreItems = false,
+                            )
+                        }
+                    },
+                    onFailure = {
+                        _uiState.update {
+                            it.copy(
+                                state = if (uiState.value.page == 1) {
+                                    State.Error
+                                } else {
+                                    State.Idle
+                                },
+                                isRequestingMoreItems = false,
+                                hasErrorRequestingMoreUsers = true
+                            )
+                        }
+                        _snackbarMessage.emit(Unit)
                     }
-                }, {
-                    _uiState.update {
-                        it.copy(
-                            state = if (uiState.value.page == 1) {
-                                State.Error
-                            } else {
-                                State.Idle
-                            },
-                            isRequestingMoreItems = false,
-                            hasErrorRequestingMoreUsers = true
-                        )
-                    }
-                    _snackbarMessage.emit(Unit)
-                })
+                )
         }
     }
 }
