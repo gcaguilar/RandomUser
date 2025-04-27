@@ -38,9 +38,8 @@ android {
         compose = true
     }
     packaging {
-        resources {
-            excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
-        }
+        resources.excludes += "META-INF/*"
+        resources.excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
     }
 }
 
