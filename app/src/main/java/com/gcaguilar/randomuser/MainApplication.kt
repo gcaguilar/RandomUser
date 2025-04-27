@@ -5,8 +5,12 @@ import com.gcaguilar.randomuser.database.di.databaseModule
 import com.gcaguilar.randomuser.feature.user.di.feedDataModule
 import com.gcaguilar.randomuser.feature.user.di.feedDomainModule
 import com.gcaguilar.randomuser.feature.user.di.feedPresentationModule
+import com.gcaguilar.randomuser.feature.userdetail.userDetailModule
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext.startKoin
+import org.koin.dsl.module
 
 class MainApplication : Application() {
     override fun onCreate() {
@@ -14,6 +18,7 @@ class MainApplication : Application() {
         startKoin {
             androidContext(this@MainApplication)
             modules(
+                module { single<CoroutineDispatcher> { Dispatchers.IO } },
                 databaseModule,
                 feedDataModule,
                 feedDomainModule,
