@@ -7,7 +7,7 @@ import com.gcaguilar.randomuser.database.mapper.toUserEntity
 import com.gcaguilar.randomuser.database.mapper.toUserModelDetailed
 import com.gcaguilar.randomuser.userlocalstorageapi.UserLocalDataSource
 import com.gcaguilar.randomuser.userlocalstorageapi.UserModelDetailed
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -15,10 +15,11 @@ import kotlinx.coroutines.withContext
 
 class UserLocalDataSourceImpl(
     private val userDao: UserDao,
-    private val deletedDao: DeletedDao
+    private val deletedDao: DeletedDao,
+    private val dispatcher: CoroutineDispatcher
 ) : UserLocalDataSource {
     override suspend fun insertAll(users: List<UserModelDetailed>) {
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             val usersEntity = users.toUserEntity()
             userDao.insertAll(usersEntity)
         }
@@ -26,24 +27,24 @@ class UserLocalDataSourceImpl(
 
     override fun getUsers(): Flow<List<UserModelDetailed>> {
         return userDao.getAllUsers()
-            .flowOn(Dispatchers.IO)
+            .flowOn(dispatcher)
             .map { it.toUserModelDetailed() }
     }
 
     override suspend fun insertInDelete(uuid: String) {
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             deletedDao.insert(DeleteEntity(uuid))
         }
     }
 
     override suspend fun deleteUser(uuid: String) {
-        withContext(Dispatchers.IO) {
+        withContext(dispatcher) {
             userDao.deleteUser(uuid)
         }
     }
 
     override suspend fun getDeletedUsers(): List<String> {
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatcher) {
             deletedDao.getAllDeletedUsers().map { it.uuid }
         }
     }
