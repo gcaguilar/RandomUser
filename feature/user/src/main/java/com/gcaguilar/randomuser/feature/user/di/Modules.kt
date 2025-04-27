@@ -5,6 +5,7 @@ import com.gcaguilar.randomuser.feature.user.data.api.UserRemoteDataSource
 import com.gcaguilar.randomuser.feature.user.data.repository.RandomUserRepository
 import com.gcaguilar.randomuser.feature.user.domain.DeleteUser
 import com.gcaguilar.randomuser.feature.user.domain.GetUsers
+import com.gcaguilar.randomuser.feature.user.domain.RequestNextPage
 import com.gcaguilar.randomuser.feature.user.presentation.FeedRandomUserViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
@@ -15,6 +16,7 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.CoroutineDispatcher
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -37,7 +39,8 @@ val feedDataModule = module {
     }
     factory<UserRemoteDataSource> {
         RandomUserApiClient(
-            client = get()
+            client = get(),
+            dispatcher = get<CoroutineDispatcher>()
         )
     }
     factory {
@@ -56,6 +59,11 @@ val feedDomainModule = module {
     }
     factory {
         DeleteUser(
+            randomUserRepository = get()
+        )
+    }
+    factory {
+        RequestNextPage(
             randomUserRepository = get()
         )
     }
