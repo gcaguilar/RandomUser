@@ -8,7 +8,7 @@ private fun UserModelDetailed.toUserEntity(): UserEntity {
         uuid = this.uuid,
         name = this.name,
         surname = this.surname,
-        email = email,
+        email = this.email,
         picture = this.picture,
         phone = phone,
         gender = this.gender,
