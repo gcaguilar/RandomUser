@@ -1,39 +1,23 @@
 package com.gcaguilar.randomuser.feature.user.data.repository
 
-import com.gcaguilar.randomuser.feature.user.data.api.RandomUserApiClient
 import com.gcaguilar.randomuser.feature.user.data.api.UserRemoteDataSource
-import com.gcaguilar.randomuser.feature.user.fake.FakeUserLocalDataSource
-import com.gcaguilar.randomuser.feature.user.modules.networkTestModule
 import com.gcaguilar.randomuser.feature.user.mother.firstPageList
 import com.gcaguilar.randomuser.userlocalstorageapi.UserLocalDataSource
+import com.gcaguilar.randomuser.userlocalstorageapi.UserModelDetailed
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
+import io.mockk.slot
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.koin.dsl.module
-import org.koin.test.KoinTest
-import org.koin.test.KoinTestRule
-import org.koin.test.inject
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertNull
-import kotlin.test.assertTrue
+import kotlin.test.assertFalse
 
-class RandomUserRepositoryTest : KoinTest {
-    private val localDataSource: UserLocalDataSource by inject()
-    private val remoteDataSource: UserRemoteDataSource by inject()
+class RandomUserRepositoryTest {
+    private val localDataSource: UserLocalDataSource = mockk(relaxed = true)
+    private val remoteDataSource: UserRemoteDataSource = mockk(relaxed = true)
     private lateinit var userRepository: RandomUserRepository
-
-    @get:Rule
-    val koinTestRule = KoinTestRule.create {
-        modules(
-            module {
-                single<UserLocalDataSource> { FakeUserLocalDataSource() }
-                single<UserRemoteDataSource> { RandomUserApiClient(get()) }
-            },
-            networkTestModule
-        )
-    }
 
     @Before
     fun setUp() {
@@ -43,28 +27,50 @@ class RandomUserRepositoryTest : KoinTest {
     @Test
     fun `Given a successful page request when data is inserted then data is inserted in database`() =
         runTest {
-            userRepository.getPage(0, "some feed")
+            coEvery { remoteDataSource.getUsers(any(), any()) } returns Result.success(firstPageList)
+            coEvery { localDataSource.getDeletedUsers() } returns emptyList()
 
-            val insertedUser = (localDataSource as FakeUserLocalDataSource).users.last()
-            assertEquals(firstPageList.last(), insertedUser)
+            userRepository.getPage(1, "some feed")
+
+            coVerify { localDataSource.insertAll(firstPageList) }
         }
+
 
     @Test
     fun `Given failed page request when data is arrived then no data is inserted`() =
         runTest {
-            userRepository.getPage(666, "some feed")
+            coEvery { remoteDataSource.getUsers(any(), any()) } returns Result.failure(Throwable())
+            coEvery { localDataSource.getDeletedUsers() } returns emptyList()
 
-            assertTrue((localDataSource as FakeUserLocalDataSource).users.isEmpty())
+            userRepository.getPage(1, "some feed")
+
+            coVerify(exactly = 0) { localDataSource.insertAll(any()) }
         }
 
     @Test
-    fun `Given that a user is deleted, when the deletion is performed, then the user should not be in the list of users and their UUID should be in the list of deleted users`() =
+    fun `Given that a user is deleted, when the deletion is performed, then delete operation should executed`() =
         runTest {
-            userRepository.getPage(0, "some feed")
+            coEvery { localDataSource.getDeletedUsers() } returns listOf(firstPageList[0].uuid)
 
             userRepository.deleteUser(firstPageList[0].uuid)
 
-            assertNull((localDataSource as FakeUserLocalDataSource).users.find { it.uuid == firstPageList[0].uuid })
-            assertNotNull((localDataSource as FakeUserLocalDataSource).deletedUsers.find { it == firstPageList[0].uuid })
+            coVerify { localDataSource.deleteUser(firstPageList[0].uuid) }
+            coVerify { localDataSource.insertInDelete(firstPageList[0].uuid) }
+        }
+
+    @Test
+    fun `Given a successful page request when some user is in delete users then only filtered users should be inserted`() =
+        runTest {
+            val filteredList = firstPageList.filter { it.uuid != firstPageList[0].uuid }
+            coEvery { remoteDataSource.getUsers(any(), any()) } returns Result.success(firstPageList)
+            coEvery { localDataSource.getDeletedUsers() } returns listOf(firstPageList[0].uuid)
+
+            userRepository.getPage(1, "some feed")
+
+            val usersCaptor = slot<List<UserModelDetailed>>()
+            coVerify { localDataSource.insertAll(capture(usersCaptor)) }
+            val insertedUsers = usersCaptor.captured
+            assertEquals(filteredList.size, insertedUsers.size)
+            assertFalse(insertedUsers.any { it.uuid == firstPageList[0].uuid })
         }
 }
