@@ -16,7 +16,7 @@ class RandomUserRepository(
                 result.filter { user ->
                     user.uuid !in deletedUsers
                 }.also {
-                    localDataSource.insertAll(result)
+                    localDataSource.insertAll(it)
                 }
             }
     }
