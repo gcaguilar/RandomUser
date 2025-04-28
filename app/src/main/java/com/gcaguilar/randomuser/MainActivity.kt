@@ -12,8 +12,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,6 +29,7 @@ import com.gcaguilar.randomuser.feature.navigation.UserDetail
 import com.gcaguilar.randomuser.feature.user.presentation.FeedRandomUserScreen
 import com.gcaguilar.randomuser.feature.userdetail.presentation.UserDetailScreen
 import com.gcaguilar.randomuser.ui.theme.RandomUserTheme
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
@@ -35,6 +40,9 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route
+            val scope = rememberCoroutineScope()
+            val snackbarHostState = remember { SnackbarHostState() }
+
             RandomUserTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -51,7 +59,8 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
-                    }
+                    },
+                    snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
@@ -59,7 +68,14 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable<Feed> {
-                            FeedRandomUserScreen(navController)
+                            FeedRandomUserScreen(
+                                onReceiveError = {
+                                    scope.launch {
+                                        snackbarHostState.showSnackbar("Something went wrong!...")
+                                    }
+                                },
+                                navController = navController
+                            )
                         }
 
                         composable<UserDetail> { backStackEntry ->

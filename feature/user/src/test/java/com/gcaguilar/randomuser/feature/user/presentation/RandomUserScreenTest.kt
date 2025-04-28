@@ -152,7 +152,8 @@ class RandomUserScreenTest {
             RandomUserTheme {
                 FeedRandomUserScreen(
                     navController = rememberNavController(),
-                    viewModel = viewModel
+                    viewModel = viewModel,
+                    onReceiveError = {}
                 )
             }
         }
