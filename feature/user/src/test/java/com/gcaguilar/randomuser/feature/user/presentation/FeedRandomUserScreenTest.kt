@@ -17,7 +17,9 @@ import com.gcaguilar.randomuser.feature.user.domain.DeleteUser
 import com.gcaguilar.randomuser.feature.user.domain.GetUsers
 import com.gcaguilar.randomuser.feature.user.domain.RequestNextPage
 import com.gcaguilar.randomuser.feature.user.mother.firstPageList
+import com.gcaguilar.randomuser.feature.user.mother.secondPage
 import com.gcaguilar.randomuser.ui.theme.RandomUserTheme
+import com.gcaguilar.randomuser.userlocalstorageapi.UserModelDetailed
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -44,7 +46,7 @@ import org.robolectric.annotation.GraphicsMode
     qualifiers = RobolectricDeviceQualifiers.Pixel5,
     sdk = [28]
 )
-class RandomUserScreenTest {
+class FeedRandomUserScreenTest {
     private val getUsers: GetUsers = mockk(relaxed = true)
     private val deleteUser: DeleteUser = mockk(relaxed = true)
     private val requestNextPage: RequestNextPage = mockk(relaxed = true)
@@ -89,6 +91,41 @@ class RandomUserScreenTest {
             renderScreen()
             advanceUntilIdle()
         }
+
+    @Test
+    fun `Given the screen is opened when the database not contains data then after request some user the list is displayed`() =
+        runTest {
+            val testFlow = MutableStateFlow(emptyList<UserModelDetailed>())
+            coEvery { getUsers(any()) } returns testFlow
+            coEvery { requestNextPage(any(), any()) } returns Result.success(Unit)
+
+            renderScreen()
+            advanceUntilIdle()
+            testFlow.update { secondPage }
+            advanceUntilIdle()
+        }
+
+    @Test
+    fun `Given the screen is opened when the database not contains data then request some users`() =
+        runTest {
+            val testFlow = MutableStateFlow(emptyList<UserModelDetailed>())
+            coEvery { getUsers(any()) } returns testFlow
+            coEvery { requestNextPage(any(), any()) } returns Result.success(Unit)
+
+            renderScreen()
+            advanceUntilIdle()
+        }
+
+    @Test
+    fun `Given the screen is opened when the database not contains data then request some users and fails`() =
+        runTest {
+            coEvery { getUsers(any()) } returns flowOf(emptyList())
+            coEvery { requestNextPage(any(), any()) } returns Result.failure(Throwable())
+
+            renderScreen()
+            advanceUntilIdle()
+        }
+
 
     @Test
     fun `Given that a user enters the screen with data and types something in the search box when the action is performed then the results are updated`() =
@@ -143,7 +180,7 @@ class RandomUserScreenTest {
             composeTestRule
                 .onNodeWithTag("DeleteNicole Gomez")
                 .performClick()
-            testFlow.update { firstPageList.subList(1, firstPageList.size) }
+            testFlow.update { firstPageList.subList(2, firstPageList.size) }
             advanceUntilIdle()
         }
 
