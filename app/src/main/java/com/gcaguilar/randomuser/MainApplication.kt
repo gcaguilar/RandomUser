@@ -5,6 +5,7 @@ import com.gcaguilar.randomuser.database.di.databaseModule
 import com.gcaguilar.randomuser.feature.user.di.feedDataModule
 import com.gcaguilar.randomuser.feature.user.di.feedDomainModule
 import com.gcaguilar.randomuser.feature.user.di.feedPresentationModule
+import com.gcaguilar.randomuser.feature.user.di.networkModule
 import com.gcaguilar.randomuser.feature.userdetail.userDetailModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +20,7 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
             modules(
                 module { single<CoroutineDispatcher> { Dispatchers.IO } },
+                networkModule,
                 databaseModule,
                 feedDataModule,
                 feedDomainModule,

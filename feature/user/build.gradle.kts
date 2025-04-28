@@ -37,6 +37,11 @@ android {
         compose = true
     }
     testOptions.unitTests.isIncludeAndroidResources = true
+    flavorDimensions += "default"
+    productFlavors {
+        create("mock") { dimension = "default" }
+        create("production") { dimension = "default" }
+    }
 }
 
 dependencies {
@@ -60,10 +65,10 @@ dependencies {
     implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.navigation)
     implementation(libs.mockk)
+    implementation(libs.ktor.mock.client)
 
     testImplementation(libs.junit)
     testImplementation(libs.koin.test)
-    testImplementation(libs.ktor.mock.client)
     testImplementation(libs.koin.test.junit4)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.bundles.screenshot.testing)
