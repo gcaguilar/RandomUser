@@ -42,6 +42,17 @@ android {
         resources.excludes += "META-INF/*"
         resources.excludes += "META-INF/versions/9/OSGI-INF/MANIFEST.MF"
     }
+    flavorDimensions += "default"
+    productFlavors {
+        create("mock") {
+            dimension = "default"
+            applicationIdSuffix = ".mock"
+            versionNameSuffix = "-mock"
+        }
+        create("production") {
+            dimension = "default"
+        }
+    }
 }
 
 dependencies {

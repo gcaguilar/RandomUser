@@ -1,4 +1,4 @@
-package com.gcaguilar.randomuser.feature.user.modules
+package com.gcaguilar.randomuser.feature.user.di
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
@@ -9,7 +9,7 @@ import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
 import org.koin.dsl.module
 
-val networkTestModule = module {
+val networkModule = module {
     single<HttpClient> {
         HttpClient(MockEngine) {
             install(ContentNegotiation) {
