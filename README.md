@@ -12,6 +12,15 @@ The application follows a modular architecture with different modules handling s
 - **shared/ui**: Contains shared UI components
 - **shared/test**: Contains common rules for test
 
+## Build Flavors
+
+Due to encountering potential instability issues with the public RandomUser.me API during development, the project utilizes product flavors to manage different build configurations:
+
+- **mock**: This flavor uses mock api, allowing for development and testing without relying on the actual API. 
+- **production**: This flavor uses the real RandomUser.me API endpoint.
+
+You can select the desired build variant (e.g., `mockDebug` or `productionDebug`) in Android Studio or via Gradle commands.
+
 ## Implementation details
 
 ### Model-View-Inent
@@ -43,16 +52,16 @@ The app uses Room database for local caching of user data, allowing the applicat
 ## Running Tests
 To run unit tests:
 ```sh
-./gradlew testDebugUnitTest
+./gradlew testProductionReleaseUnitTest
 ```
 
 ## Possible Improvements
 - Improve UI.
 - Replace the mocks in the tests by a version that uses only the network layer mocks and the rest are real implementations.
 - Improve pagination as well as keep the page you are on after closing/opening the app.
-- Add more comprehensive UI.
 - Support for multiple themes (dark/light mode)
 - Improve error handling with more addocs to the fault or the layer in which they are found.
+- **Testing Strategy Evolution**: Initially, the testing strategy aimed for more integrated unit tests, particularly for Use Cases, attempting to use Ktor's `MockEngine` for the network layer and an in-memory Room database. However, challenges were encountered in reliably configuring and verifying behavior in this setup. Consequently, the approach pivoted towards more traditional unit tests using mocks (MockK) to isolate components. This evolution and the initial integration attempts are visible in the Git history. Revisiting the integrated testing approach remains a potential future improvement.
 
 ## Features
 - Browse random users from RandomUser.me API
