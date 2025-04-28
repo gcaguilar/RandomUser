@@ -8,7 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.gcaguilar.randomuser.MainCoroutineRule
 import com.gcaguilar.randomuser.createRoborazziRule
 import com.gcaguilar.randomuser.createScreenshotTestComposeRule
-import com.gcaguilar.randomuser.feature.user.mother.firstPageList
+import com.gcaguilar.randomuser.feature.userfeed.mother.firstPageList
 import com.gcaguilar.randomuser.feature.userdetail.domain.GetUserDetail
 import com.gcaguilar.randomuser.ui.theme.RandomUserTheme
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers

@@ -26,7 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.gcaguilar.randomuser.feature.navigation.Feed
 import com.gcaguilar.randomuser.feature.navigation.UserDetail
-import com.gcaguilar.randomuser.feature.user.presentation.FeedRandomUserScreen
+import com.gcaguilar.randomuser.feature.userfeed.presentation.FeedRandomUserScreen
 import com.gcaguilar.randomuser.feature.userdetail.presentation.UserDetailScreen
 import com.gcaguilar.randomuser.ui.theme.RandomUserTheme
 import kotlinx.coroutines.launch

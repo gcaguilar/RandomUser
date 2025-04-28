@@ -1,7 +1,7 @@
 package com.gcaguilar.randomuser.feature.userdetail.presentation
 
 import app.cash.turbine.test
-import com.gcaguilar.randomuser.feature.user.mother.firstPageList
+import com.gcaguilar.randomuser.feature.userfeed.mother.firstPageList
 import com.gcaguilar.randomuser.feature.userdetail.domain.GetUserDetail
 import io.mockk.coEvery
 import io.mockk.mockk
