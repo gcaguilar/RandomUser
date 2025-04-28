@@ -50,11 +50,15 @@ class FeedRandomUserViewModel(
     private fun startObserve() {
         viewModelScope.launch {
             getUsers(searchText).collect { users ->
-                _uiState.update {
-                    it.copy(
-                        users = users.toUserModel(),
-                        state = State.Idle
-                    )
+                if (users.isEmpty()) {
+                    onRequestNextPage()
+                } else {
+                    _uiState.update {
+                        it.copy(
+                            users = users.toUserModel(),
+                            state = State.Idle
+                        )
+                    }
                 }
             }
         }
@@ -128,7 +132,7 @@ class FeedRandomUserViewModel(
                     onFailure = {
                         _uiState.update {
                             it.copy(
-                                state = if (uiState.value.page == 1) {
+                                state = if (uiState.value.page == 1 && uiState.value.users.isEmpty()) {
                                     State.Error
                                 } else {
                                     State.Idle

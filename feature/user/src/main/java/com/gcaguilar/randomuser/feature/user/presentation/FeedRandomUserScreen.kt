@@ -42,11 +42,6 @@ fun FeedRandomUserScreen(
     LaunchedEffect(Unit) {
         viewModel.handle(FeedUserIntent.StartObserving)
     }
-    if (state.value.users.isEmpty()) {
-        LaunchedEffect(Unit) {
-            viewModel.handle(FeedUserIntent.RequestMoreUsers)
-        }
-    }
 
     when (state.value.state) {
         State.Loading -> Loading(modifier.fillMaxSize())
