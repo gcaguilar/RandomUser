@@ -2,10 +2,10 @@ package com.gcaguilar.randomuser
 
 import android.app.Application
 import com.gcaguilar.randomuser.database.di.databaseModule
-import com.gcaguilar.randomuser.feature.user.di.feedDataModule
-import com.gcaguilar.randomuser.feature.user.di.feedDomainModule
-import com.gcaguilar.randomuser.feature.user.di.feedPresentationModule
-import com.gcaguilar.randomuser.feature.user.di.networkModule
+import com.gcaguilar.randomuser.feature.userfeed.di.feedDataModule
+import com.gcaguilar.randomuser.feature.userfeed.di.feedDomainModule
+import com.gcaguilar.randomuser.feature.userfeed.di.feedPresentationModule
+import com.gcaguilar.randomuser.feature.userfeed.di.networkModule
 import com.gcaguilar.randomuser.feature.userdetail.userDetailModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
