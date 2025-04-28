@@ -26,6 +26,7 @@ private val SnackBarEvent = "SnackBarEvent"
 
 @Composable
 fun FeedRandomUserScreen(
+    onReceiveError: () -> Unit,
     navController: NavHostController,
     modifier: Modifier = Modifier,
     viewModel: FeedRandomUserViewModel = koinViewModel()
@@ -35,7 +36,7 @@ fun FeedRandomUserScreen(
 
     LaunchedEffect(SnackBarEvent) {
         viewModel.snackbarMessage.collectLatest {
-            //  onReceiveError()
+            onReceiveError()
         }
     }
     LaunchedEffect(Unit) {
