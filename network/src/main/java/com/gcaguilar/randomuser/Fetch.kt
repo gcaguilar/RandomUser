@@ -1,4 +1,4 @@
-package com.gcaguilar.randomuser.feature.userfeed.data.api
+package com.gcaguilar.randomuser
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

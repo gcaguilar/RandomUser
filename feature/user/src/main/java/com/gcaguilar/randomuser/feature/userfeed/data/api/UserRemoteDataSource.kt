@@ -2,6 +2,7 @@ package com.gcaguilar.randomuser.feature.userfeed.data.api
 
 
 import com.gcaguilar.randomuser.feature.userfeed.data.mapper.toUserModelDetailed
+import com.gcaguilar.randomuser.fetch
 import com.gcaguilar.randomuser.userlocalstorageapi.UserModelDetailed
 import io.ktor.client.HttpClient
 import io.ktor.client.request.parameter

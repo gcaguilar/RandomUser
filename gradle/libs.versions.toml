@@ -23,6 +23,9 @@ junit4-compose = "1.8.0"
 test-manifest = "1.8.0"
 turbine = "1.2.0"
 mockk = "1.14.0"
+androidxJunit = "1.2.1"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -63,6 +66,9 @@ roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-ju
 androidx-compose-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "junit4-compose" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
