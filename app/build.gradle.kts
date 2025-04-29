@@ -59,6 +59,7 @@ dependencies {
     implementation(project(":feature:user"))
     implementation(project(":shared:ui"))
     implementation(project(":database"))
+    implementation(project(":network"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

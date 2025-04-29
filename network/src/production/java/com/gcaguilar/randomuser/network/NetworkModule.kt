@@ -1,4 +1,4 @@
-package com.gcaguilar.randomuser.feature.userfeed.di
+package com.gcaguilar.randomuser.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp

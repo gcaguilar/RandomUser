@@ -7,6 +7,7 @@ The application follows a modular architecture with different modules handling s
 
 - **app**: Main module that coordinates the application flow
 - **feature/user**: Contains the user listing and detail functionality
+- **network**: Contains the network API client(real and mock) setup and configuration for connecting to the RandomUser.me API
 - **database**: Handles local data storage
 - **user-localstorage-api**: Interface for local storage operations, abstracting the feature or different features from the data source.
 - **shared/ui**: Contains shared UI components

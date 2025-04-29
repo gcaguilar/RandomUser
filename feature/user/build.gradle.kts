@@ -48,6 +48,7 @@ dependencies {
     implementation(project(":user-localstorage-api"))
     implementation(project(":shared:test"))
     implementation(project(":shared:ui"))
+    implementation(project(":network"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.ktor)
