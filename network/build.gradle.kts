@@ -41,4 +41,5 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.bundles.ktor)
     implementation(libs.koin.core)
+    implementation(libs.ktor.mock.client)
 }
