@@ -66,9 +66,6 @@ roborazzi-rule = { group = "io.github.takahirom.roborazzi", name = "roborazzi-ju
 androidx-compose-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "junit4-compose" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
