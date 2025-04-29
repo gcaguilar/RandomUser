@@ -6,7 +6,7 @@ import com.gcaguilar.randomuser.feature.userdetail.userDetailModule
 import com.gcaguilar.randomuser.feature.userfeed.di.feedDataModule
 import com.gcaguilar.randomuser.feature.userfeed.di.feedDomainModule
 import com.gcaguilar.randomuser.feature.userfeed.di.feedPresentationModule
-import com.gcaguilar.randomuser.netwok.networkModule
+import com.gcaguilar.randomuser.network.networkModule
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
